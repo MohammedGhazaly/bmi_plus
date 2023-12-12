@@ -1,10 +1,9 @@
 import 'package:bmi_plus/features/control/widgets/back_button.dart';
-import 'package:bmi_plus/features/control/widgets/weight_picker_list_view.dart';
 import 'package:bmi_plus/features/control/widgets/weight_widget.dart';
 import 'package:bmi_plus/models/gender_model.dart';
 import 'package:flutter/material.dart';
 
-class ControlViewGenderAndWeightPicker extends StatelessWidget {
+class ControlViewGenderAndWeightPicker extends StatefulWidget {
   const ControlViewGenderAndWeightPicker({
     super.key,
     required this.gender,
@@ -13,14 +12,23 @@ class ControlViewGenderAndWeightPicker extends StatelessWidget {
   final GenderModel gender;
 
   @override
+  State<ControlViewGenderAndWeightPicker> createState() =>
+      _ControlViewGenderAndWeightPickerState();
+}
+
+class _ControlViewGenderAndWeightPickerState
+    extends State<ControlViewGenderAndWeightPicker> {
+  int selectedWeight = 10;
+  int initialWeight = 10;
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 12,
         ),
-        CustomBackButton(gender: gender),
-        SizedBox(
+        CustomBackButton(gender: widget.gender),
+        const SizedBox(
           height: 16,
         ),
         Expanded(
@@ -28,19 +36,19 @@ class ControlViewGenderAndWeightPicker extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                gender.type,
-                style: TextStyle(
+                widget.gender.type,
+                style: const TextStyle(
                   fontSize: 32,
                   color: Colors.black,
                   fontWeight: FontWeight.w400,
                 ),
               ),
               Icon(
-                gender.icon,
-                color: gender.color,
+                widget.gender.icon,
+                color: widget.gender.color,
                 size: 72,
               ),
-              Text(
+              const Text(
                 "Weight (KG)",
                 style: TextStyle(
                   fontSize: 24,
@@ -52,7 +60,24 @@ class ControlViewGenderAndWeightPicker extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: WeightPickerListView(color: gender.color),
+          child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: 300,
+            itemBuilder: (context, index) {
+              int weight = initialWeight + index;
+              return InkWell(
+                onTap: () {
+                  selectedWeight = initialWeight + index;
+                  setState(() {});
+                },
+                child: WeightWidget(
+                  weight: weight,
+                  isSelected: selectedWeight == initialWeight + index,
+                  color: widget.gender.color,
+                ),
+              );
+            },
+          ),
         )
       ],
     );
