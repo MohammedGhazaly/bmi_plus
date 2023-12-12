@@ -25,7 +25,7 @@ class GenderContainer extends StatelessWidget {
           ),
           Text(
             gender,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 32,
               color: Colors.white,
               fontWeight: FontWeight.bold,

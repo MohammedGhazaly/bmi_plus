@@ -17,8 +17,7 @@ class WeightWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: AnimatedDefaultTextStyle(
-        duration: Duration(milliseconds: 300),
-        child: Text(weight.toString()),
+        duration: const Duration(milliseconds: 300),
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: isSelected ? 32 : 18,
@@ -26,6 +25,7 @@ class WeightWidget extends StatelessWidget {
           // color: Colors.black,
           fontWeight: isSelected ? FontWeight.bold : FontWeight.w900,
         ),
+        child: Text(weight.toString()),
       ),
     );
   }

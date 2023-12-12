@@ -23,7 +23,7 @@ class CustomBackButton extends StatelessWidget {
               Icons.arrow_back_ios_new_outlined,
               color: gender.color,
             ),
-            SizedBox(
+            const SizedBox(
               width: 8,
             ),
             Text(
