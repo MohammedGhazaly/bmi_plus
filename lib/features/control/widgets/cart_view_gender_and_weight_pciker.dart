@@ -7,8 +7,9 @@ class ControlViewGenderAndWeightPicker extends StatefulWidget {
   const ControlViewGenderAndWeightPicker({
     super.key,
     required this.gender,
+    required this.onPressedFunction,
   });
-
+  final Function(int weight) onPressedFunction;
   final GenderModel gender;
 
   @override
@@ -69,6 +70,7 @@ class _ControlViewGenderAndWeightPickerState
                 onTap: () {
                   selectedWeight = initialWeight + index;
                   setState(() {});
+                  widget.onPressedFunction(selectedWeight);
                 },
                 child: WeightWidget(
                   weight: weight,

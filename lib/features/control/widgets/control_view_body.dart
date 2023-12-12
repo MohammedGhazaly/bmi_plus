@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:bmi_plus/core/app_colors.dart';
 import 'package:bmi_plus/features/control/widgets/cart_view_gender_and_weight_pciker.dart';
 import 'package:bmi_plus/features/control/widgets/control_view_height_picker.dart';
+import 'package:bmi_plus/features/results/results_view.dart';
 import 'package:bmi_plus/models/gender_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ControlViewBody extends StatelessWidget {
@@ -11,6 +15,8 @@ class ControlViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var weight = 10;
+    var height = 50;
     return Stack(
       children: [
         Row(
@@ -18,12 +24,21 @@ class ControlViewBody extends StatelessWidget {
             Expanded(
               flex: 4,
               child: SafeArea(
-                child: ControlViewGenderAndWeightPicker(gender: gender),
+                child: ControlViewGenderAndWeightPicker(
+                  gender: gender,
+                  onPressedFunction: (selectedWeight) {
+                    weight = selectedWeight;
+                  },
+                ),
               ),
             ),
             Expanded(
               flex: 2,
-              child: ControlViewHeightPicker(gender: gender),
+              child: ControlViewHeightPicker(
+                  gender: gender,
+                  onPressedFunction: (selectedHeight) {
+                    height = selectedHeight;
+                  }),
             ),
           ],
         ),
@@ -41,7 +56,13 @@ class ControlViewBody extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                double bmi = ((weight) / pow(height / 100, 2));
+                Navigator.push(context,
+                    CupertinoModalPopupRoute(builder: (context) {
+                  return ResultsView(bmi: bmi, color: gender.color);
+                }));
+              },
               child: Text(
                 "Calc",
               ),

@@ -6,8 +6,9 @@ class ControlViewHeightPicker extends StatefulWidget {
   const ControlViewHeightPicker({
     super.key,
     required this.gender,
+    required this.onPressedFunction,
   });
-
+  final Function(int height) onPressedFunction;
   final GenderModel gender;
 
   @override
@@ -54,6 +55,7 @@ class _ControlViewHeightPickerState extends State<ControlViewHeightPicker> {
                   onTap: () {
                     selectedHeight = initialHeight + index;
                     setState(() {});
+                    widget.onPressedFunction(selectedHeight);
                   },
                   child: HeightWidget(
                     weight: weight,
