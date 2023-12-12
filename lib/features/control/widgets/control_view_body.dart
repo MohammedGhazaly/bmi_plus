@@ -1,4 +1,4 @@
-import 'package:bmi_plus/features/control/widgets/control_view_left.dart';
+import 'package:bmi_plus/features/control/widgets/cart_view_gender_and_weight_pciker.dart';
 import 'package:bmi_plus/models/gender_model.dart';
 import 'package:flutter/material.dart';
 
@@ -12,16 +12,40 @@ class ControlViewBody extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          flex: 3,
+          flex: 4,
           child: SafeArea(
-            child: ControlViewLeft(gender: gender),
+            child: ControlViewGenderAndWeightPicker(gender: gender),
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Container(
             color: gender.color,
-            child: Column(),
+            child: SafeArea(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    "Height",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  Text(
+                    "(CM)",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ],
